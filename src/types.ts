@@ -60,17 +60,27 @@ export type CharacterDetails = {
 }
 
 export type Skills = {
-    stats: {
+    stats: Stats;
+    proficiencies: (SavingThrow | Skill)[];
+    armor_class?: number;
+    initiative?: number;
+    speed?: number;
+    hit_points?: number;
+}
+
+export type Stats = {
         strength?: number;
         dexterity?: number;
         constitution?: number;
         intelligence?: number;
         wisdom?: number;
         charisma?: number;
-    };
-    proficiencies?: (SavingThrow | Skill)[];
-    armor_class?: number;
-    initiative?: number;
-    speed?: number;
-    hit_points?: number;
+}
+
+export type MoneyPouch = {
+        cp?: number;
+        sp?: number;
+        ep?: number;
+        gp?: number;
+        pp?: number;
 }
