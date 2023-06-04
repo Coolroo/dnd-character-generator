@@ -84,3 +84,10 @@ export type MoneyPouch = {
         gp?: number;
         pp?: number;
 }
+
+export type ProgressBarStep = {
+    id: number;
+    name: 'Info' | 'Character Sheet' | 'Character Details' | 'Finished';
+    href: string;
+    status: 'complete' | 'current' | 'upcoming';
+}
