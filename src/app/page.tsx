@@ -1,9 +1,6 @@
-import ProgressBar from "../components/progressbar";
+'use client';
+import {redirect} from "next/navigation"
 
 export default function Example() {
-  return (
-    <>
-    <ProgressBar/>
-    </>
-  )
+  redirect("/info")
 }

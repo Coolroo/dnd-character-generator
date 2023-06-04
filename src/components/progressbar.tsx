@@ -1,15 +1,18 @@
+'use client'
+import { useAppStore } from '@/lib/store';
+import { ProgressBarStep } from '@/types'
 import { CheckIcon } from '@heroicons/react/24/solid'
 
-const steps = [
-  { id: '01', name: 'Job details', href: '#', status: 'complete' },
-  { id: '02', name: 'Application form', href: '#', status: 'current' },
-  { id: '03', name: 'Preview', href: '#', status: 'upcoming' },
-]
+interface ProgressBarProps {
+  steps: ProgressBarStep[];
+}
 
-export default function ProgrssBar() {
+export default function ProgressBar(): JSX.Element {
+  const { progress } = useAppStore()
+  let steps = progress;
   return (
-    <nav aria-label="Progress">
-      <ol role="list" className="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
+    <nav aria-label="Progress" style={{position: 'sticky', top: 0}}>
+      <ol role="list" className="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0 bg-white">
         {steps.map((step, stepIdx) => (
           <li key={step.name} className="relative md:flex md:flex-1">
             {step.status === 'complete' ? (
@@ -29,7 +32,7 @@ export default function ProgrssBar() {
                 <span className="ml-4 text-sm font-medium text-indigo-600">{step.name}</span>
               </a>
             ) : (
-              <a href={step.href} className="group flex items-center">
+              <a className="group flex items-center">
                 <span className="flex items-center px-6 py-4 text-sm font-medium">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
                     <span className="text-gray-500 group-hover:text-gray-900">{step.id}</span>
