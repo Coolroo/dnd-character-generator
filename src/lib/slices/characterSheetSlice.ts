@@ -21,7 +21,10 @@ export interface CharacterSheet {
 }
 
 const initialState: CharacterSheet = {
-    character_details: {},
+    character_details: {
+        appearance: { 
+        }
+    },
     skills: {
         stats: {
         },
