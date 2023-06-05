@@ -1,10 +1,19 @@
+'use client'
 import { create } from 'zustand'
 import { CharacterSheetSlice, createCharacterSheetSlice } from './slices/characterSheetSlice'
 import { createProgressSlice, ProgressSlice } from './slices/progressSlice'
+import { GenerationSettingsSlice, createGenerationSettingsSlice } from './slices/generationSettingsSlice';
 
-type StoreType = CharacterSheetSlice & ProgressSlice;
+export type StoreType = CharacterSheetSlice & ProgressSlice & GenerationSettingsSlice;
 
-export const useAppStore = create<StoreType>()((...a) => ({
+export const useCharacterSheetStore = create<CharacterSheetSlice>()((...a) => ({
     ...createCharacterSheetSlice(...a),
-    ...createProgressSlice(...a)
+}));
+
+export const useProgressStore = create<ProgressSlice>()((...a) => ({
+    ...createProgressSlice(...a),
+}))
+
+export const useGenerationSettingsStore = create<GenerationSettingsSlice>()((...a) => ({
+    ...createGenerationSettingsSlice(...a),
 }))

@@ -6,6 +6,14 @@ export enum Progress {
     final = "Final"
 }
 
+
+export enum InputState {
+    generate = "Generate",
+    ignore = "Ignore",
+    provided = "Provide"
+}
+
+
 export enum SavingThrow{
     "strength",
     "dexterity",

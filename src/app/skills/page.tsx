@@ -2,10 +2,9 @@
 import { useProgressStore } from "@/lib/store";
 import { useEffect, useLayoutEffect } from "react";
 
-const PAGE_ID = 5;
+const PAGE_ID = 3;
 
-export default function ReviewPage(){
-
+export default function SkillsPage(){
 
   const currentPage = useProgressStore((state) => state.current_page);
   const setCurrentPage = useProgressStore((state) => state.setCurrentPage);
@@ -15,4 +14,5 @@ export default function ReviewPage(){
 }, [currentPage])
 
     return <div></div>
+
 }

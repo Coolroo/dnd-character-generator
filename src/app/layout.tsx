@@ -1,8 +1,12 @@
-import ProgressBar from '@/components/defaultLayout/progressbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import dynamic from 'next/dynamic';
 
 const inter = Inter({ subsets: ['latin'] })
+
+const ProgressBar = dynamic(() =>
+  import('@/components/defaultLayout/progressBar'), {ssr: false}
+);
 
 export const metadata = {
   title: 'D&D Character Generator',

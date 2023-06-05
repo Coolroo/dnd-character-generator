@@ -1,6 +1,7 @@
-import { CharacterDetails } from "@/types";
 import { useState } from "react";
-import { InputState } from "./inputBox";
+import InputStateDropdown from "./InputStateDropdown";
+import { InputState } from "@/types";
+import { useGenerationSettingsStore } from "@/lib/store";
 
 export interface MultilineInput<T>{
     label: string;
@@ -8,22 +9,27 @@ export interface MultilineInput<T>{
     description: string;
     name: string;
     id: string;
+    path: string;
+    inputState: InputState;
     value?: string;
     setDetails: (value: T) => void;
 }
 
-export default function MultilineInputBox<T>({label, placeholder, description, name, id, setDetails}: MultilineInput<T>){
+export default function MultilineInputBox<T>({label, placeholder, description, path, name, inputState, id, setDetails}: MultilineInput<T>){
 
     const [ mode, setMode ] = useState(InputState.ignore);
-
     return (
-    <div>
-        {mode === InputState.provided ?(
         <div>
-            <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">
-            {label}
-            </label>
-            <div className="mt-2">
+        <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">
+          {label}
+        </label>
+        <div className="mt-2 grid grid-cols-2">
+            <InputStateDropdown inputState={inputState} onChange={(event) => {
+              setMode(event.target.value as InputState)
+              useGenerationSettingsStore((state) => state.updateSetting({path, value: event.target.value as unknown as InputState}))
+            }}/>
+        {mode === InputState.provided ?(
+            <div>
                 <textarea
                 id={id}
                 name={name}
@@ -33,14 +39,8 @@ export default function MultilineInputBox<T>({label, placeholder, description, n
                 defaultValue={''}
                 />
             </div>
-            <p className="mt-3 text-sm leading-6 text-gray-600">{description}</p>
-        </div>
         ) : (
             <div>
-                <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">
-            {label}
-            </label>
-            <div className="mt-2">
                 <textarea
                 id={id}
                 name={name}
@@ -51,9 +51,9 @@ export default function MultilineInputBox<T>({label, placeholder, description, n
                 defaultValue={''}
                 />
             </div>
-            <p className="mt-3 text-sm leading-6 text-gray-600">{description}</p>
-            </div>
         )}
+        </div>
+        <p className="mt-3 text-sm leading-6 text-gray-600">{description}</p>
         
   </div>
   )
