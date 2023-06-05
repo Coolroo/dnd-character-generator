@@ -21,7 +21,10 @@ export interface CharacterSheet {
 }
 
 const initialState: CharacterSheet = {
-    character_details: {},
+    character_details: {
+        appearance: { 
+        }
+    },
     skills: {
         stats: {
         },
@@ -47,6 +50,7 @@ export interface CharacterSheetSlice{
     setSpellcasting: (spellcasting: string) => void;
     setMoney: (money: MoneyPouch) => void;
     setEquipment: (equipment: string) => void;
+    reset: () => void;
 }
 
 export const createCharacterSheetSlice: StateCreator<CharacterSheetSlice> = (set, get) => ({
@@ -148,4 +152,7 @@ export const createCharacterSheetSlice: StateCreator<CharacterSheetSlice> = (set
             }
         })
     },
+    reset: ()  => {
+        set({character: initialState})
+    }
 })

@@ -6,6 +6,14 @@ export enum Progress {
     final = "Final"
 }
 
+
+export enum InputState {
+    generate = "Generate",
+    ignore = "Ignore",
+    provided = "Provide"
+}
+
+
 export enum SavingThrow{
     "strength",
     "dexterity",
@@ -43,17 +51,27 @@ export type WeaponEntry = {
 }
 
 export type CharacterDetails = {
+    appearance: {
+        age?: number;
+        height?: number;
+        weight?: number;
+        eyes?: string;
+        skin?: string;
+        hair?: string;
+        race?: string;
+    }
+    personality_traits?: string;
+    ideals?: string;
+    bonds?: string;
+    flaws?: string;
     character_name?: string;
     class?: string;
     level?: number;
     background?: string;
-    race?: string;
     alignment?: string;
     profs_and_langs?: string;
     features?: string;
     allies_and_organizations?: string;
-    appearance?: string;
-    symbol?: string;
     character_backstory?: string;
     additional_features?: string;
     treasure?: string;
@@ -85,9 +103,11 @@ export type MoneyPouch = {
         pp?: number;
 }
 
+export type pages = 'Info' | 'Equipment' | 'Character Details' | 'Skills' | 'Review & Finish';
+
 export type ProgressBarStep = {
     id: number;
-    name: 'Info' | 'Character Sheet' | 'Character Details' | 'Finished';
+    name: pages;
     href: string;
     status: 'complete' | 'current' | 'upcoming';
 }

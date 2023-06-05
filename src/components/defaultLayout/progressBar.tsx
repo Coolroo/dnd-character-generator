@@ -1,15 +1,9 @@
 'use client'
-import { useAppStore } from '@/lib/store';
-import { ProgressBarStep } from '@/types'
+import { useProgressStore } from '@/lib/store';
 import { CheckIcon } from '@heroicons/react/24/solid'
 
-interface ProgressBarProps {
-  steps: ProgressBarStep[];
-}
-
 export default function ProgressBar(): JSX.Element {
-  const { progress } = useAppStore()
-  let steps = progress;
+  let steps = useProgressStore((state) => state.progress);
   return (
     <nav aria-label="Progress" style={{position: 'sticky', top: 0}}>
       <ol role="list" className="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0 bg-white">
@@ -32,7 +26,7 @@ export default function ProgressBar(): JSX.Element {
                 <span className="ml-4 text-sm font-medium text-indigo-600">{step.name}</span>
               </a>
             ) : (
-              <a className="group flex items-center">
+              <a href={step.href} className="group flex items-center">
                 <span className="flex items-center px-6 py-4 text-sm font-medium">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
                     <span className="text-gray-500 group-hover:text-gray-900">{step.id}</span>
