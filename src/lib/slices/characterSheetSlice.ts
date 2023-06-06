@@ -1,24 +1,6 @@
-import { CharacterDetails, MoneyPouch, SavingThrow, Skill, Skills, Stats, WeaponEntry } from "@/types";
+import { CharacterDetails, CharacterSheet, MoneyPouch, SavingThrow, Skill, Skills, Stats, WeaponEntry } from "@/types";
 import { StateCreator } from "zustand";
 
-export interface CharacterSheet {
-    character_details: CharacterDetails,
-    skills: Skills,
-    attacks: {
-        weapons: WeaponEntry[]
-        spellcasting?: string;
-    }
-    belongings: {
-        money: {
-            cp?: number;
-            sp?: number;
-            ep?: number;
-            gp?: number;
-            pp?: number;
-        };
-        equipment?: string;
-    }
-}
 
 const initialState: CharacterSheet = {
     character_details: {
