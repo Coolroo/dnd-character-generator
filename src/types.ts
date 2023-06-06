@@ -111,3 +111,80 @@ export type ProgressBarStep = {
     href: string;
     status: 'complete' | 'current' | 'upcoming';
 }
+
+export type CharacterSheet = {
+    character_details: CharacterDetails,
+    skills: Skills,
+    attacks: {
+        weapons: WeaponEntry[]
+        spellcasting?: string;
+    }
+    belongings: {
+        money: {
+            cp?: number;
+            sp?: number;
+            ep?: number;
+            gp?: number;
+            pp?: number;
+        };
+        equipment?: string;
+    }
+}
+
+export type GenerationSettings = {
+    character_details: {
+        appearance: {
+            age: InputState;
+            height: InputState;
+            weight: InputState;
+            eyes: InputState;
+            skin: InputState;
+            hair: InputState;
+            race: InputState;
+        };
+        personality_traits: InputState;
+        ideals: InputState;
+        bonds: InputState;
+        flaws: InputState;
+        character_name: InputState;
+        class: InputState;
+        level: InputState;
+        background: InputState;
+        alignment: InputState;
+        profs_and_langs: InputState;
+        features: InputState;
+        allies_and_organizations: InputState;
+        character_backstory: InputState;
+        additional_features: InputState;
+        treasure: InputState;
+    },
+    skills: {
+        stats: {
+            strength: InputState;
+            dexterity: InputState;
+            constitution: InputState;
+            intelligence: InputState;
+            wisdom: InputState;
+            charisma: InputState;
+        };
+        proficiencies: InputState;
+        armor_class: InputState;
+        initiative: InputState;
+        speed: InputState;
+        hit_points: InputState;
+    },
+    attacks: {
+        weapons: InputState;
+        spellcasting: InputState;
+    },
+    belongings: {
+        money: {
+            cp: InputState;
+            sp: InputState;
+            ep: InputState;
+            gp: InputState;
+            pp: InputState;
+        };
+        equipment: InputState;
+    }
+}
