@@ -1,20 +1,21 @@
 'use client'
 import { useProgressStore } from '@/lib/store';
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
-import { useEffect} from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useLayoutEffect} from 'react';
 
 const PAGE_ID = 1;
 
 export default function InfoPage() {
 
+  const router = useRouter();
+    const setCurrentPage = useProgressStore((state) => state.setCurrentPage);
+    
+    useEffect(() => {
+        setCurrentPage(PAGE_ID);
+    }, [router]);
 
-  const currentPage = useProgressStore((state) => state.current_page);
 
-  const setCurrentPage = useProgressStore((state) => state.setCurrentPage);
-
-  useEffect(() => {
-    setCurrentPage(PAGE_ID);
-}, [currentPage])
   return (
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
         <p className="text-base font-semibold leading-7 text-indigo-600">Introducing</p>
