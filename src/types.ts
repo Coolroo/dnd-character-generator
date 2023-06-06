@@ -78,7 +78,7 @@ export type CharacterDetails = {
 
 export type Skills = {
     stats: Stats;
-    proficiencies: Field<(SavingThrow | Skill)>[];
+    proficiencies: Field<SavingThrow | Skill>[];
     armor_class: Field<number>;
     initiative: Field<number>;
     speed: Field<number>;
