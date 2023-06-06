@@ -3,10 +3,9 @@ import { StateCreator } from "zustand";
 
 export interface ProgressSlice{
     progress: ProgressBarStep[];
-    current_page: number;
-    setPageStatus: (pageId: number, status: 'complete' | 'current' | 'upcoming') => void;
     setCurrentPage: (pageId: number) => void;
-    reset: () => void;
+    setPageStatus: (pageId: number, status: 'complete' | 'current' | 'upcoming') => void;
+    setData: (state: ProgressSlice) => void;
 }
 
 const defaultValue: ProgressBarStep[] = [
@@ -45,30 +44,34 @@ const defaultValue: ProgressBarStep[] = [
 export const createProgressSlice: StateCreator<ProgressSlice> = (set) => ({
     progress: defaultValue,
     current_page: 1,
+    setCurrentPage: (pageId: number) => {
+        set(state => {
+            const newProgress = state.progress.map((step) => {
+                if(step.id === pageId){
+                    return {...step, status: step.status === 'complete' ? 'complete' : 'current'}
+                }
+                else{
+                    return {...step, status: step.status === 'complete' ? 'complete' : 'upcoming'}
+                }
+            });
+            return {progress: newProgress} as ProgressSlice;
+        })
+    },
     setPageStatus: (pageId: number, status: 'complete' | 'current' | 'upcoming') => {
         set(state => {
             const newProgress = state.progress.map((step) => {
                 if(step.id === pageId){
-                    return {...step, status}
-                }
-                return step;
-            })
-            return {progress: newProgress}
-        })
-    },
-    setCurrentPage: (pageId: number) => {
-        set(state => {
-            const newProgress = state.progress.map((step) => {
-                if(step.id === state.current_page || step.id === pageId){
-                    return {...step, status: step.status === 'complete' ? 'complete' : 'current'}
+                    return {...step, status: status}
                 }
                 return step;
             });
-            console.log(JSON.stringify(newProgress))
-            return {progress: newProgress, current_page: pageId} as ProgressSlice;
+            return {progress: newProgress} as ProgressSlice;
         })
     },
     reset: () => {
-        set({progress: defaultValue, current_page: 1})
+        set({progress: defaultValue})
+    },
+    setData: (state: ProgressSlice) => {
+        set(state)
     }
 })

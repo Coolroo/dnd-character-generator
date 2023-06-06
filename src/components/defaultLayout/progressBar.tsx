@@ -4,6 +4,7 @@ import { CheckIcon } from '@heroicons/react/24/solid'
 
 export default function ProgressBar(): JSX.Element {
   let steps = useProgressStore((state) => state.progress);
+  console.log(steps);
   return (
     <nav aria-label="Progress" style={{position: 'sticky', top: 0}}>
       <ol role="list" className="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0 bg-white">

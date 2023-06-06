@@ -1,42 +1,23 @@
-import { CharacterDetails, CharacterSheet, MoneyPouch, SavingThrow, Skill, Skills, Stats, WeaponEntry } from "@/types";
+import { CharacterDetails, CharacterSheet, MoneyPouch, SavingThrow, Skill, Skills, Stats, WeaponEntry, emptyCharacterSheet, Field, InputState } from "@/types";
 import { StateCreator } from "zustand";
-
-
-const initialState: CharacterSheet = {
-    character_details: {
-        appearance: { 
-        }
-    },
-    skills: {
-        stats: {
-        },
-        proficiencies: []
-    },
-    attacks: {
-        weapons: [],
-    },
-    belongings: {
-        money: {},
-    }
-}
 
 export interface CharacterSheetSlice{
     character: CharacterSheet;
     setCharacterDetails: (characterDetails: CharacterDetails) => void;
     setStats: (stats: Stats) => void;
     setSkills: (skills: Skills) => void;
-    addProficiency: (proficiency: SavingThrow | Skill) => void;
-    setProficiencies: (proficiencies: (SavingThrow | Skill)[]) => void;
-    addWeapon: (weapon: WeaponEntry) => void;
-    setWeapons: (weapons: WeaponEntry[]) => void;
-    setSpellcasting: (spellcasting: string) => void;
+    addProficiency: (proficiency: Field<SavingThrow | Skill>) => void;
+    setProficiencies: (proficiencies: Field<(SavingThrow | Skill)>[]) => void;
+    addWeapon: (weapon: Field<WeaponEntry>) => void;
+    setWeapons: (weapons: Field<WeaponEntry>[]) => void;
+    setSpellcasting: (spellcasting: Field<string>) => void;
     setMoney: (money: MoneyPouch) => void;
-    setEquipment: (equipment: string) => void;
-    reset: () => void;
+    setEquipment: (equipment: Field<string>) => void;
+    setData: (state: CharacterSheetSlice) => void;
 }
 
 export const createCharacterSheetSlice: StateCreator<CharacterSheetSlice> = (set, get) => ({
-    character: initialState,
+    character: emptyCharacterSheet(),
     setCharacterDetails: (characterDetails: CharacterDetails) => {
         set({
             character: {
@@ -64,77 +45,55 @@ export const createCharacterSheetSlice: StateCreator<CharacterSheetSlice> = (set
             }
         })
     },
-    addProficiency: (proficiency: SavingThrow | Skill) => {
+    addProficiency: (proficiency: Field<SavingThrow | Skill>) => {
         let character = get().character
         character.skills.proficiencies?.push(proficiency);
         set({character})
     },
-    setProficiencies: (proficiencies: (SavingThrow | Skill)[]) => {
+    setProficiencies: (proficiencies: Field<(SavingThrow | Skill)>[]) => {
         let character = get().character;
+        character.skills.proficiencies = proficiencies;
         set({
-            character: {
-                ...character,
-                skills: {
-                    ...character.skills,
-                    proficiencies
-                }
-            }
+            character
         })
     },
-    addWeapon: (weapon: WeaponEntry) => {
+    addWeapon: (weapon: Field<WeaponEntry>) => {
         let character = get().character;
         character.attacks.weapons.push(weapon);
         set({character});
     },
-    setWeapons: (weapons: WeaponEntry[]) => {
+    setWeapons: (weapons: Field<WeaponEntry>[]) => {
         let character = get().character;
+        character.attacks.weapons = weapons;
         set({
-            character: {
-                ...character,
-                attacks: {
-                    ...character.attacks,
-                    weapons
-                }
-            }
+            character
         })
     },
-    setSpellcasting: (spellcasting: string) => {
+    setSpellcasting: (spellcasting: Field<string>) => {
         let character = get().character;
+        character.attacks.spellcasting = spellcasting;
         set({
-            character: {
-                ...character,
-                attacks: {
-                    ...character.attacks,
-                    spellcasting
-                }
-            }
+            character
         })
     },
     setMoney: (money: MoneyPouch) => {
         let character = get().character;
+        character.belongings.money = money;
         set({
-            character: {
-                ...character,
-                belongings: {
-                    ...character.belongings,
-                    money
-                }
-            }
+            character
         })
     },
-    setEquipment: (equipment: string) => {
+    setEquipment: (equipment: Field<string>) => {
         let character = get().character;
+        character.belongings.equipment = equipment;
         set({
-            character: {
-                ...character,
-                belongings: {
-                    ...character.belongings,
-                    equipment
-                }
-            }
+            character
         })
     },
     reset: ()  => {
-        set({character: initialState})
+        set({character: emptyCharacterSheet()})
+    },
+    setData: (state: CharacterSheetSlice) => {
+        set(state)
     }
 })

@@ -2,18 +2,22 @@
 import { create } from 'zustand'
 import { CharacterSheetSlice, createCharacterSheetSlice } from './slices/characterSheetSlice'
 import { createProgressSlice, ProgressSlice } from './slices/progressSlice'
-import { GenerationSettingsSlice, createGenerationSettingsSlice } from './slices/generationSettingsSlice';
+import {createJSONStorage, persist} from "zustand/middleware"
 
-export type StoreType = CharacterSheetSlice & ProgressSlice & GenerationSettingsSlice;
+export type StoreType = CharacterSheetSlice & ProgressSlice;
 
-export const useCharacterSheetStore = create<CharacterSheetSlice>()((...a) => ({
+export const useCharacterSheetStore = create<CharacterSheetSlice>()(persist((...a) => ({
     ...createCharacterSheetSlice(...a),
+}),
+{
+    name: 'character-sheet-store',
+    storage: createJSONStorage(() => sessionStorage)
 }));
 
-export const useProgressStore = create<ProgressSlice>()((...a) => ({
+export const useProgressStore = create<ProgressSlice>()(persist((...a) => ({
     ...createProgressSlice(...a),
-}))
-
-export const useGenerationSettingsStore = create<GenerationSettingsSlice>()((...a) => ({
-    ...createGenerationSettingsSlice(...a),
+}),
+{
+    name: 'progress-store',
+    storage: createJSONStorage(() => sessionStorage)
 }))

@@ -1,18 +1,17 @@
-export enum Progress {
-    about = "About",
-    character = "Character Sheet",
-    description = "Description",
-    spells = "Spells",
-    final = "Final"
-}
+export type pages = 'Info' | 'Equipment' | 'Character Details' | 'Skills' | 'Review & Finish';
 
+export type ProgressBarStep = {
+    id: number;
+    name: pages;
+    href: string;
+    status: 'complete' | 'current' | 'upcoming';
+}
 
 export enum InputState {
     generate = "Generate",
     ignore = "Ignore",
     provided = "Provide"
 }
-
 
 export enum SavingThrow{
     "strength",
@@ -25,7 +24,7 @@ export enum SavingThrow{
 
 export enum Skill {
     "acrobatics",
-    "animal handling",
+    "animal_handling",
     "arcana",
     "athletics",
     "deception",
@@ -39,7 +38,7 @@ export enum Skill {
     "performance",
     "persuasion",
     "religion",
-    "sleight of hand",
+    "sleight_of_hand",
     "stealth",
     "survival"
 }
@@ -52,139 +51,142 @@ export type WeaponEntry = {
 
 export type CharacterDetails = {
     appearance: {
-        age?: number;
-        height?: number;
-        weight?: number;
-        eyes?: string;
-        skin?: string;
-        hair?: string;
-        race?: string;
+        age: Field<number>;
+        height: Field<number>;
+        weight: Field<number>;
+        eyes: Field<string>;
+        skin: Field<string>;
+        hair: Field<string>;
+        race: Field<string>;
     }
-    personality_traits?: string;
-    ideals?: string;
-    bonds?: string;
-    flaws?: string;
-    character_name?: string;
-    class?: string;
-    level?: number;
-    background?: string;
-    alignment?: string;
-    profs_and_langs?: string;
-    features?: string;
-    allies_and_organizations?: string;
-    character_backstory?: string;
-    additional_features?: string;
-    treasure?: string;
+    personality_traits: Field<string>;
+    ideals: Field<string>;
+    bonds: Field<string>;
+    flaws: Field<string>;
+    character_name: Field<string>;
+    class: Field<string>;
+    level: Field<number>;
+    background: Field<string>;
+    alignment: Field<string>;
+    profs_and_langs: Field<string>;
+    features: Field<string>;
+    allies_and_organizations: Field<string>;
+    character_backstory: Field<string>;
+    additional_features: Field<string>;
+    treasure: Field<string>;
 }
 
 export type Skills = {
     stats: Stats;
-    proficiencies: (SavingThrow | Skill)[];
-    armor_class?: number;
-    initiative?: number;
-    speed?: number;
-    hit_points?: number;
+    proficiencies: Field<(SavingThrow | Skill)>[];
+    armor_class: Field<number>;
+    initiative: Field<number>;
+    speed: Field<number>;
+    hit_points: Field<number>;
 }
 
 export type Stats = {
-        strength?: number;
-        dexterity?: number;
-        constitution?: number;
-        intelligence?: number;
-        wisdom?: number;
-        charisma?: number;
+        strength: Field<number>;
+        dexterity: Field<number>;
+        constitution: Field<number>;
+        intelligence: Field<number>;
+        wisdom: Field<number>;
+        charisma: Field<number>;
 }
 
 export type MoneyPouch = {
-        cp?: number;
-        sp?: number;
-        ep?: number;
-        gp?: number;
-        pp?: number;
-}
-
-export type pages = 'Info' | 'Equipment' | 'Character Details' | 'Skills' | 'Review & Finish';
-
-export type ProgressBarStep = {
-    id: number;
-    name: pages;
-    href: string;
-    status: 'complete' | 'current' | 'upcoming';
+        cp: Field<number>;
+        sp: Field<number>;
+        ep: Field<number>;
+        gp: Field<number>;
+        pp: Field<number>;
 }
 
 export type CharacterSheet = {
     character_details: CharacterDetails,
     skills: Skills,
     attacks: {
-        weapons: WeaponEntry[]
-        spellcasting?: string;
+        weapons: Field<WeaponEntry>[];
+        spellcasting: Field<string>;
     }
     belongings: {
-        money: {
-            cp?: number;
-            sp?: number;
-            ep?: number;
-            gp?: number;
-            pp?: number;
-        };
-        equipment?: string;
+        money: MoneyPouch;
+        equipment: Field<string>;
     }
 }
 
-export type GenerationSettings = {
+export const emptyCharacterSheet = (): CharacterSheet => ({
     character_details: {
         appearance: {
-            age: InputState;
-            height: InputState;
-            weight: InputState;
-            eyes: InputState;
-            skin: InputState;
-            hair: InputState;
-            race: InputState;
-        };
-        personality_traits: InputState;
-        ideals: InputState;
-        bonds: InputState;
-        flaws: InputState;
-        character_name: InputState;
-        class: InputState;
-        level: InputState;
-        background: InputState;
-        alignment: InputState;
-        profs_and_langs: InputState;
-        features: InputState;
-        allies_and_organizations: InputState;
-        character_backstory: InputState;
-        additional_features: InputState;
-        treasure: InputState;
+            age: new Field<number>(),
+            height: new Field<number>(),
+            weight: new Field<number>(),
+            eyes: new Field<string>(),
+            skin: new Field<string>(),
+            hair: new Field<string>(),
+            race: new Field<string>(),
+        },
+        personality_traits: new Field<string>(),
+        ideals: new Field<string>(),
+        bonds: new Field<string>(),
+        flaws: new Field<string>(),
+        character_name: new Field<string>(),
+        class: new Field<string>(),
+        level: new Field<number>(),
+        background: new Field<string>(),
+        alignment: new Field<string>(),
+        profs_and_langs: new Field<string>(),
+        features: new Field<string>(),
+        allies_and_organizations: new Field<string>(),
+        character_backstory: new Field<string>(),
+        additional_features: new Field<string>(),
+        treasure: new Field<string>(),
     },
     skills: {
         stats: {
-            strength: InputState;
-            dexterity: InputState;
-            constitution: InputState;
-            intelligence: InputState;
-            wisdom: InputState;
-            charisma: InputState;
-        };
-        proficiencies: InputState;
-        armor_class: InputState;
-        initiative: InputState;
-        speed: InputState;
-        hit_points: InputState;
+            strength: new Field<number>(),
+            dexterity: new Field<number>(),
+            constitution: new Field<number>(),
+            intelligence: new Field<number>(),
+            wisdom: new Field<number>(),
+            charisma: new Field<number>(),
+        },
+        proficiencies: [],
+        armor_class: new Field<number>(),
+        initiative: new Field<number>(),
+        speed: new Field<number>(),
+        hit_points: new Field<number>(),
     },
     attacks: {
-        weapons: InputState;
-        spellcasting: InputState;
+        weapons: [],
+        spellcasting: new Field<string>(),
     },
     belongings: {
         money: {
-            cp: InputState;
-            sp: InputState;
-            ep: InputState;
-            gp: InputState;
-            pp: InputState;
-        };
-        equipment: InputState;
+            cp: new Field<number>(),
+            sp: new Field<number>(),
+            ep: new Field<number>(),
+            gp: new Field<number>(),
+            pp: new Field<number>(),
+        },
+        equipment: new Field<string>(),
+    }
+});
+
+export class Field<T> {
+    value?: T;
+    state: InputState;
+    
+    constructor(value?: T, state: InputState = InputState.ignore){
+        this.value = value;
+        this.state = state;
+    }
+
+
+    setValue(value: T){
+        this.value = value;
+    }
+    setState(state: InputState){
+        this.state = state;
     }
 }
