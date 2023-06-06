@@ -114,79 +114,72 @@ export type CharacterSheet = {
         equipment: Field<string>;
     }
 }
-
 export const emptyCharacterSheet = (): CharacterSheet => ({
     character_details: {
         appearance: {
-            age: new Field<number>(),
-            height: new Field<number>(),
-            weight: new Field<number>(),
-            eyes: new Field<string>(),
-            skin: new Field<string>(),
-            hair: new Field<string>(),
-            race: new Field<string>(),
+            age: emptyField(),
+            height: emptyField(),
+            weight: emptyField(),
+            eyes: emptyField(),
+            skin: emptyField(),
+            hair: emptyField(),
+            race: emptyField()
         },
-        personality_traits: new Field<string>(),
-        ideals: new Field<string>(),
-        bonds: new Field<string>(),
-        flaws: new Field<string>(),
-        character_name: new Field<string>(),
-        class: new Field<string>(),
-        level: new Field<number>(),
-        background: new Field<string>(),
-        alignment: new Field<string>(),
-        profs_and_langs: new Field<string>(),
-        features: new Field<string>(),
-        allies_and_organizations: new Field<string>(),
-        character_backstory: new Field<string>(),
-        additional_features: new Field<string>(),
-        treasure: new Field<string>(),
+        personality_traits: emptyField(),
+        ideals: emptyField(),
+        bonds: emptyField(),
+        flaws: emptyField(),
+        character_name: emptyField(),
+        class: emptyField(),
+        level: emptyField(),
+        background: emptyField(),
+        alignment: emptyField(),
+        profs_and_langs: emptyField(),
+        features: emptyField(),
+        allies_and_organizations: emptyField(),
+        character_backstory: emptyField(),
+        additional_features: emptyField(),
+        treasure: emptyField()
     },
     skills: {
         stats: {
-            strength: new Field<number>(),
-            dexterity: new Field<number>(),
-            constitution: new Field<number>(),
-            intelligence: new Field<number>(),
-            wisdom: new Field<number>(),
-            charisma: new Field<number>(),
+            strength: emptyField(),
+            dexterity: emptyField(),
+            constitution: emptyField(),
+            intelligence: emptyField(),
+            wisdom: emptyField(),
+            charisma: emptyField()
         },
         proficiencies: [],
-        armor_class: new Field<number>(),
-        initiative: new Field<number>(),
-        speed: new Field<number>(),
-        hit_points: new Field<number>(),
+        armor_class: emptyField(),
+        initiative: emptyField(),
+        speed: emptyField(),
+        hit_points: emptyField()
     },
     attacks: {
         weapons: [],
-        spellcasting: new Field<string>(),
+        spellcasting: emptyField()
     },
     belongings: {
         money: {
-            cp: new Field<number>(),
-            sp: new Field<number>(),
-            ep: new Field<number>(),
-            gp: new Field<number>(),
-            pp: new Field<number>(),
+            cp: emptyField(),
+            sp: emptyField(),
+            ep: emptyField(),
+            gp: emptyField(),
+            pp: emptyField()
         },
-        equipment: new Field<string>(),
+        equipment: emptyField()
     }
 });
 
-export class Field<T> {
+
+export type Field<T> = {
     value?: T;
     state: InputState;
-    
-    constructor(value?: T, state: InputState = InputState.ignore){
-        this.value = value;
-        this.state = state;
-    }
-
-
-    setValue(value: T){
-        this.value = value;
-    }
-    setState(state: InputState){
-        this.state = state;
-    }
 }
+
+export const emptyField = <T>(): Field<T> => ({
+    value: undefined,
+    state: InputState.ignore
+});
+  
