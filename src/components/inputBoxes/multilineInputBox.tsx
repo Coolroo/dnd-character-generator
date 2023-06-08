@@ -21,9 +21,14 @@ export default function MultilineInputBox<T>({label, placeholder, description, n
           {label}
         </label>
         <div className="mt-2 grid grid-cols-2">
+            <div className="grid grid-rows-2">
             <InputStateDropdown inputState={inputState} onChange={(event) => {
               setValue({state: event.target.value as unknown as InputState, value})
             }}/>
+                <p className="mt-2 text-sm text-gray-500" id="email-description">
+                    {description}
+                </p>
+            </div>
         {inputState === InputState.provided ?(
             <div>
                 <textarea
@@ -31,7 +36,7 @@ export default function MultilineInputBox<T>({label, placeholder, description, n
                 name={name}
                 rows={3}
                 placeholder={placeholder}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 defaultValue={value ? value as unknown as string : ""}
                 onChange={(event) => {
                     setValue({state: inputState, value: event.target.value as unknown as T})
@@ -52,7 +57,6 @@ export default function MultilineInputBox<T>({label, placeholder, description, n
             </div>
         )}
         </div>
-        <p className="mt-3 text-sm leading-6 text-gray-600">{description}</p>
         
   </div>
   )

@@ -21,13 +21,19 @@ export default function InputBox<T>({label, placeholder, description, type, name
           {label}
         </label>
         <div className="grid grid-cols-2">
-            <InputStateDropdown inputState={inputState} onChange={(event) => {
+            <div className="grid grid-rows-2">
+              <InputStateDropdown inputState={inputState} onChange={(event) => {
               console.log(event.target.value as unknown as InputState);
                 setValue({state: event.target.value as unknown as InputState, value: value})
               
             }}/>
+              <p className="mt-2 text-sm text-gray-500" id="email-description">
+                {description}
+              </p>
+            </div>
+        
       {inputState === InputState.provided ? (
-        <div className="mt-2">
+        <div className="">
           <input
             type={type}
             name={name}
@@ -42,7 +48,7 @@ export default function InputBox<T>({label, placeholder, description, type, name
           />
         </div>
       ) : (
-        <div className="mt-2">
+        <div className="">
           <input
             type={type}
             name={name}
@@ -55,9 +61,6 @@ export default function InputBox<T>({label, placeholder, description, type, name
         </div>
     )}
     </div>
-      <p className="mt-2 text-sm text-gray-500" id="email-description">
-        {description}
-      </p>
     </div>
     )
   }

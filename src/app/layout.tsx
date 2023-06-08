@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>    
       <ProgressBar />
-      <div className="bg-white px-6 py-32 lg:px-8">
+      <div className="bg-white px-6 py-8 lg:px-8">
         {children}
       </div>
       </body>
