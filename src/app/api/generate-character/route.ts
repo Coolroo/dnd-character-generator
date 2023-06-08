@@ -6,4 +6,8 @@ export async function GET(request: Request) {
   const characterSheet: CharacterSheet = JSON.parse(decodeURIComponent(searchParams.get('characterSheet') || '{}'));
 
   /* ... */
+
+  return {
+    message: "Got request!"
+  }
 }
