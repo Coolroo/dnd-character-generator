@@ -7,7 +7,5 @@ export async function GET(request: Request) {
 
   /* ... */
 
-  return {
-    message: "Got request!"
-  }
+  return NextResponse.json({ message: 'Got Request!' });
 }
