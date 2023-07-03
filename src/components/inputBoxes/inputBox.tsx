@@ -12,8 +12,8 @@ export interface InputBoxProps<T>{
     value?: T;
     inputState: InputState;
     setValue: (value: Field<T>) => void;
-
 }
+
 export default function InputBox<T>({label, placeholder, description, type, name, id, inputState, value, setValue}: InputBoxProps<T>) {
     return (
       <div>
@@ -23,10 +23,8 @@ export default function InputBox<T>({label, placeholder, description, type, name
         <div className="grid grid-cols-2">
             <div className="grid grid-rows-2">
               <InputStateDropdown inputState={inputState} onChange={(event) => {
-              console.log(event.target.value as unknown as InputState);
                 setValue({state: event.target.value as unknown as InputState, value: value})
-              
-            }}/>
+              }}/>
               <p className="mt-2 text-sm text-gray-500" id="email-description">
                 {description}
               </p>

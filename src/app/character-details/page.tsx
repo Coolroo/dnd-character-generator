@@ -17,29 +17,29 @@ export default function CharacterDetailsPage() {
     const router = useRouter();
     const setPageStatus = useProgressStore((state) => state.setPageStatus);
     const setCurrentPage = useProgressStore((state) => state.setCurrentPage);
-    const persistedCharacter = useCharacterSheetStore(state => state.character.character_details)
-    
+    const persistedCharacter = useCharacterSheetStore(state => state.character.character_details);
+
     useEffect(() => {
         setCurrentPage(PAGE_ID);
         setCharacter(persistedCharacter)
     }, [router]);
-    
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setPageStatus(PAGE_ID, 'complete');
         setCharacterDetails(character);
     }
 
-  return (
+    return (
     <form onSubmit={handleSubmit}>
-      <div className="space-y-12">
+        <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Basic Info</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Basic Info</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
             The basic info for this character which usually is at the top of the character sheet.
-          </p>
+            </p>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
                 <InputBox<string> label="Character Name" placeholder="Character Name" description="The name of the character" type="text" name="characterName" id="characterName" path="character_name" value={character.character_name.value} inputState={character.character_name.state} setValue={(val: Field<string> ) => setCharacter({...character, character_name:  val})}/>
             </div>
@@ -67,15 +67,15 @@ export default function CharacterDetailsPage() {
                 <InputBox<string> label="Alignment" placeholder="Alignment" description="The alignment of the character" type="text" name="alignment" id="alignment" path="alignment" value={character.alignment.value} inputState={character.alignment.state} setValue={(val: Field<string> ) => setCharacter({...character, alignment: val})}/>
             </div>
         </div>
-      </div>
+        </div>
 
-      <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Background & Features</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+        <div className="border-b border-gray-900/10 pb-12">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Background & Features</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
             Background information, appearance, and features of the character.
-          </p>
+            </p>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
             <div className="sm:col-span-4">
                 <InputBox<number> label="Age" placeholder="Age" description="The age of the character" type="number" name="age" id="age" path="appearance.age" value={character.appearance?.age.value} inputState={character.appearance?.age.state} setValue={(val: Field<number> ) => setCharacter({...character, appearance: {
@@ -151,22 +151,22 @@ export default function CharacterDetailsPage() {
                 <MultilineInputBox<string> label="Treasure" placeholder="Treasure" description="The treasure of the character" name="treasure" id="treasure" value={character.treasure.value} inputState={character.treasure.state} setValue={(val: Field<string> ) => setCharacter({...character, treasure: val})} />
             </div>
 
-          </div>
+            </div>
 
         </div>
 
-      <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mt-6 flex items-center justify-end gap-x-6">
         <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-          Cancel
+            Cancel
         </button>
         <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            type="submit"
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Save
+            Save
         </button>
-      </div>
+        </div>
     </div>
     </form>
-  )
+    )
 }
