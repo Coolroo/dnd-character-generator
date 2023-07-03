@@ -21,6 +21,7 @@ export default function CharacterDetailsPage() {
 
     useEffect(() => {
         setCurrentPage(PAGE_ID);
+        console.log(persistedCharacter);
         setCharacter(persistedCharacter)
     }, [router]);
 
@@ -41,7 +42,12 @@ export default function CharacterDetailsPage() {
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
-                <InputBox<string> label="Character Name" placeholder="Character Name" description="The name of the character" type="text" name="characterName" id="characterName" path="character_name" value={character.character_name.value} inputState={character.character_name.state} setValue={(val: Field<string> ) => setCharacter({...character, character_name:  val})}/>
+                <InputBox<string> label="Character Name" placeholder="Character Name" description="The name of the character" type="text" name="characterName" id="characterName" path="character_name" value={character.character_name.value} inputState={character.character_name.state} setValue={(val: Field<string> ) => 
+                    {
+                        console.log(persistedCharacter);
+                        return setCharacter({...character, character_name:  val})
+                    }
+                }/>
             </div>
 
             <div className="sm:col-span-4">

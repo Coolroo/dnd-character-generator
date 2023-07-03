@@ -19,6 +19,7 @@ export default function SkillsPage(){
   
   useEffect(() => {
       setCurrentPage(PAGE_ID);
+      console.log(persistedCharacter);
       setCharacter(persistedCharacter);
   }, [router]);
 
